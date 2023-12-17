@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500&display=swap');
+
+body{
+    margin: 1vh;
+    padding: 0;
+}
+
+#response{
+    font-family: 'Montserrat', sans-serif;
+    font-size: large;
+}
+
+#container{
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    font-size: large;
+}
+
+#questionNumber{
+    padding: 1%;
+    margin: 1px;
+    width: 50%;
+}
+
+#category{
+    display: flex;
+    padding: 1%;
+    margin: 1px;
+    width: 50%;
+    
+    justify-content: end;
+}
+
+#question{
+    color: #E788AC;
+   
+    font-family: 'Montserrat', sans-serif;
+    font-size: x-large;
+}
+
+#points{
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+}
+
+.choice-container{
+    text-align: start;
+    margin-top: 1vh;
+    
+}
+
+.choice-text{
+    border: 1px solid #E788AC;
+    background: none;
+    padding: 2vh 2vh;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vh;
+    cursor: pointer;
+    color: #E788AC;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5vh;
+   
+}
+
+.choice-text:hover{
+    color: #fff;
+
+}
+
+.choice-text::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border-radius: 0 0 50% 50%;
+    height: 0%;
+    background: #E788AC;
+    z-index: -1;
+    transition: 0.8s;
+}
+
+.choice-text:hover::before{
+    height: 180%;
+}
+
+#button1{
+    border: 1px solid #E788AC;
+    background: none;
+    padding: 1.5vh 2vh;
+    font-family: 'Montserrat', sans-serif;
+    font-size:small;
+    cursor: pointer;
+    color: #E788AC;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5vh;
+    
+}
+
+#button1:hover{
+    color: #fff;
+
+}
+#button1::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 50% 50% 0 0;
+    height: 0%;
+    background: #E788AC;
+    z-index: -1;
+    transition: 0.8s;
+}
+
+#button1:hover::before{
+    height: 180%;
+}
+
+
