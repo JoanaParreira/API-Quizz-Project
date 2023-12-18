@@ -3,23 +3,134 @@
 body{
     margin: 1vh;
     padding: 0;
+    min-height: 100vh;
+    background: #0c192c;
+}
+
+.containerBody{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.bubbles{
+    position: relative;
+    display: flex;
+    z-index: 0;
+}
+
+.bubbles span{
+    position: relative;
+    width: 3vh;
+    height: 3vh;
+    background: #4fc3dc;
+    margin: 0 4px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 10px #4fc3dc44, 0 0 50px #4fc3dc, 0 0 100px #4fc3dc;
+    animation: animate 15s linear infinite;
+    animation-duration: calc(150s / var(--i));
+}
+
+.bubbles span:nth-child(even){
+    background: #ff2d75;
+    box-shadow: 0 0 0 10px #ff2d7544, 0 0 50px #ff2d75, 0 0 100px #ff2d75;
+}
+
+@keyframes animate{
+    0%{
+        transform: translateY(100vh) scale(0);
+    }
+    100%{
+        transform: translateY(-10vh) scale(0.6);
+    }
+
 }
 
 #response{
     font-family: 'Montserrat', sans-serif;
     font-size: large;
+    color: #fff;
+    margin-top: 3vh;
+    margin-left: 15vh;
 }
 
+#trivia{
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10vh;
+    color: #E788AC;
+    padding-top: 10vh;
+    justify-content: center;
+}
+
+#trivia a {
+    display: inline-block;
+    animation: flip 2s infinite;
+    animation-delay: calc(.2s * var(--i));
+}
+
+@keyframes flip {
+    0%, 50% {
+        transform: rotateY(360deg);
+    }
+}
+#question, .choice-container, #response, #button1, #button2 {
+    z-index: 2;
+}
+
+#button2{
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    justify-content: center;
+    background: #E788AC;
+    color: #fff;
+    letter-spacing: 0.1em;
+    padding: 30px 80px;
+    cursor: pointer;
+    border-radius: 5vh;
+    border: #fff;
+    transition: 0.5s;
+}
+
+#button2:hover{
+    background: var(--clr);
+    letter-spacing: 0.2em;
+    box-shadow: 0 0 35px var(--clr);
+}
+
+#button2 i{
+    inset: 0;
+    display: block;
+}
+
+#button2 i::before{
+    content: '';
+    position: absolute;
+
+}
+
+#startButton{
+    padding-top: 10vh;
+    display: flex;
+    justify-content: center;
+}
 #container{
+    padding-top: 7vh;
+    padding-bottom: 2vh;
     font-family: 'Montserrat', sans-serif;
     display: flex;
     font-size: large;
+    color: #fff;
 }
 
 #questionNumber{
     padding: 1%;
     margin: 1px;
     width: 50%;
+    font-size: larger;
 }
 
 #category{
@@ -27,33 +138,35 @@ body{
     padding: 1%;
     margin: 1px;
     width: 50%;
-    
     justify-content: end;
+    font-size: larger;
 }
 
 #question{
+    display: flex;
     color: #E788AC;
-   
     font-family: 'Montserrat', sans-serif;
-    font-size: x-large;
+    font-size: 4vh;
+    justify-content: center;
 }
 
 #points{
     font-family: 'Montserrat', sans-serif;
-    font-size: medium;
+    font-size: large;
 }
 
 .choice-container{
-    text-align: start;
+    text-align:center;
     margin-top: 1vh;
     
 }
 
 .choice-text{
     border: 1px solid #E788AC;
+    margin-bottom: 1vh;
     background: none;
     padding: 2vh 2vh;
-    width: 100%;
+    width: 90%;
     font-family: 'Montserrat', sans-serif;
     font-size: 2vh;
     cursor: pointer;
@@ -62,11 +175,13 @@ body{
     position: relative;
     overflow: hidden;
     border-radius: 5vh;
+    letter-spacing: 0.1em;
    
 }
 
 .choice-text:hover{
     color: #fff;
+    letter-spacing: 0.50em;
 
 }
 
@@ -91,19 +206,23 @@ body{
     border: 1px solid #E788AC;
     background: none;
     padding: 1.5vh 2vh;
+    margin-left: 15vh;
     font-family: 'Montserrat', sans-serif;
-    font-size:small;
+    font-size: medium;
+    letter-spacing: 0.1em;
     cursor: pointer;
     color: #E788AC;
     transition: 0.4s;
     position: relative;
     overflow: hidden;
     border-radius: 5vh;
+    transition: 0.5s;
     
 }
 
 #button1:hover{
     color: #fff;
+    letter-spacing: 0.25em;
 
 }
 #button1::before{
