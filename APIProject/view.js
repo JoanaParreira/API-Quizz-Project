@@ -1,9 +1,12 @@
-define(function () {
+define(["controller"], function (quizzController) {
   const internals = {};
   const externals = {};
 
   let indexRandom = 0;
   let questionNumber = 1;
+  let selectedCategoryId = 0;
+  let selectedIndex = Math.floor(Math.random()*23);
+
 
   internals.createQuestion = function (question) {
     if (
@@ -24,9 +27,8 @@ define(function () {
     }
   };
 
-  internals.renderQuizz = function (question) {
-    var quizzCard = $("#app");
-
+  internals.renderQuizz = function (question, selectedIndex) {
+    internals.createCategory(question, selectedIndex);
     let questionCreated = internals.createQuestion(question);
     $("#question").empty().append(questionCreated);
     $("#questionNumber")
@@ -34,26 +36,21 @@ define(function () {
       .append(`Question: ` + questionNumber + `/10`);
 
     internals.renderAnswers(question);
-    //internals.incrementIndex();
     internals.incrementQuestion();
-    internals.createCategory(question);
-
     console.log(question);
   };
 
+  internals.fetchCategory = async function (category) {
+    let categories = await category.trivia_categories;
+    return categories;
+  };
 
 
   internals.createAnswers = function (answer) {
-
     var arrayIncorrect = answer.results[indexRandom].incorrect_answers
-    
     var correctAnswers = [answer.results[indexRandom].correct_answer];
-
     var answers = correctAnswers.concat(arrayIncorrect);
-
     console.log(answers);
-
-    
     internals.shuffleArray(answers);
     console.log(answers);
     return answers;
@@ -159,37 +156,51 @@ define(function () {
   };
 
   internals.createCategory = function (question) {
-    var insert = "Category is: " + question.results[indexRandom].category;
+    var insert = "Category is: " + question.results[selectedIndex].category;
     $("#category").empty().append(insert);
   };
 
 
-  internals.createStartMenu = function(){
-
+  internals.createStartMenu = function (categories) {
     var menu = `<div id="trivia"> <span>T</span>rivia <span>Q</span>uizz </div>`;
-    var startButton = `<div id=startButton><button id ="button2" style="--clr:#df6694"> Start the Quizz <i></i></button></div>`
+    var categoryDropdown = `<div id="categoryDropdown"> <label for="categorySelect">Select Category:</label> <select id="categorySelect">${categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('')}</select> </div>`;
+    var startButton = `<div id=startButton><button id="button2" style="--clr:#df6694">Start the Quiz <i></i></button></div>`;
     $("#game").append(menu);
-    $("#game").append(startButton); 
-  }
-
-  internals.renderStartButton = function (question) {
-    internals.createStartMenu();
-    var button2 = $("#button2");
-    var emptyTrivia = $("#game");
-
-    $(button2).off("click");
-    $(button2).on("click", function () {
-      $(button2).remove();
-      emptyTrivia.empty();
-      internals.renderQuizz(question);
-    });
-
+    $("#game").append(categoryDropdown);
+    $("#game").append(startButton);
   };
 
-  externals.render = function (question) {
-    //internals.renderQuizz(question);
-    //internals.createStartMenu(question);
-    internals.renderStartButton(question);
+  internals.renderStartButton = function (question, categories) {
+    internals.fetchCategory(categories).then(categories => {
+        internals.createStartMenu(categories);
+        var button2 = $("#button2");
+        var emptyTrivia = $("#game");
+
+        $(button2).off("click");
+        $(button2).on("click", function () {
+            selectedCategoryId = $("#categorySelect").val();
+            console.log(selectedCategoryId);
+
+            const selectedCategory = categories.find(cat => cat.id == selectedCategoryId);
+            selectedIndex = categories.indexOf(selectedCategory);
+            console.log(selectedIndex);
+
+      
+            internals.renderQuizz(question, selectedIndex);
+
+            $(button2).remove();
+            emptyTrivia.empty();
+        });
+    });
+};
+
+   externals.getSelectedIndex = function () {
+    return selectedIndex;
+  };
+
+
+  externals.render = function (question, category) {
+    internals.renderStartButton(question, category); 
   };
   return externals;
 });
