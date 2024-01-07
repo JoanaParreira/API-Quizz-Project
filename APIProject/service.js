@@ -41,7 +41,7 @@
     internals.fetchData = function (category) {
         let url = `https://opentdb.com/api.php?amount=10&category=${category}`;
         // let url = `https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple`
-        //console.log(url);
+        console.log(url);
         return url;
     };
 

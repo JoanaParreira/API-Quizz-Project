@@ -33,6 +33,8 @@ define(["service", "view"], function (quizzService, quizzView) {
     return index;
   };
 
+  
+
   internals.populateView = async function () {
     var data = quizzService.getData(await externals.getSelectedIndexFromView());
     var categories = await quizzService.fetchCategories();
