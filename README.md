@@ -1,6 +1,6 @@
 # Trivia Quizz
 
-A simple implementation of the QuizzGame using HTML, CSS, JavaScript and an open source API.
+A simple implementation of a Quizz Game using HTML, CSS, JavaScript and an open source API.
 
 ## Demonstration
 ![QuizzStart](/StartMenuTriviaQuizz.png)
