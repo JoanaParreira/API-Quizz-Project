@@ -1,4 +1,4 @@
-# Triva Quizz
+# Trivia Quizz
 
 A simple implementation of the QuizzGame using HTML, CSS, JavaScript and an open source API.
 
